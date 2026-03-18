@@ -1,4 +1,6 @@
 using System.Runtime.CompilerServices;
+using Unity.Collections;
+using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,12 +14,23 @@ public class PlayerController : MonoBehaviour
     public string playername;
     private Vector2 moveinput;
     public float movespeed = 7f;
+    private Rigidbody2D rb;
 
-
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
     public void OnMove(InputValue value)
     {
         moveinput = value.Get<Vector2>();
     }
+    //public void OnJump(InputValue value)
+    //{
+    //   if(value.isPressed) // 점프 버튼을 누르면
+    //    {
+    //        rb.linearVelocity = new Vector2(rb.linearVelocity.x, );
+    //    }
+    //}
     // Update is called once per frame
     void Update()
     {
@@ -26,7 +39,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.localScale = new Vector3(1, 1, 1);
         }
-        else if(moveinput.x < 0) 
+        if(moveinput.x < 0) 
         {
             transform.localScale = new Vector3(-1, 1, 1);
         }
